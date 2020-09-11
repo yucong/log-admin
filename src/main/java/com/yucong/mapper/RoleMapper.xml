@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yucong.mapper.RoleMapper">
+
+  <select id="findByUserIdAndAvailableTrue" resultType="com.yucong.entity.Role">
+	SELECT
+		r.*
+	FROM
+		sys_user_role ur
+	INNER JOIN sys_role r ON r.id = ur.role_id
+	WHERE 
+		ur.user_id = #{userId} AND
+		r.available = true
+  </select>
+  
+  <select id="findByUserId" resultType="com.yucong.entity.Role">
+	SELECT
+		r.*
+	FROM
+		sys_user_role ur
+	INNER JOIN sys_role r ON r.id = ur.role_id
+	WHERE 
+		ur.user_id = #{userId}
+  </select>
+  
+  
+  <select id="findUserIdByRoleId" resultType="java.lang.Long">
+  	  SELECT DISTINCT 
+  	    u.id 
+  	  FROM 
+  	    sys_user_role ur 
+  	  INNER JOIN sys_user u ON u.id = ur.user_id 
+  	  WHERE 
+  	    u.locked = false AND ur.role_id = #{roleId}
+  </select>
+  
+  <select id="findUserIdByRoleIds" resultType="java.lang.Long">
+  	  SELECT DISTINCT 
+  	    u.id 
+  	  FROM 
+  	    sys_user_role ur 
+  	  INNER JOIN sys_user u ON u.id = ur.user_id 
+  	  WHERE 
+  	    u.locked = false AND ur.role_id IN
+  	       <foreach collection="roleIds" item="id" index="index" open="(" close=")" separator=",">
+		      #{id}
+		   </foreach>
+  </select>
+  
+  
+  <select id="findRoleIdByPermissionId" resultType="java.lang.Long">
+	  SELECT DISTINCT
+	    rp.role_id
+	  FROM
+	    sys_role_permission rp
+	  INNER JOIN sys_permission p ON p.id = rp.permission_id
+	  INNER JOIN sys_role r ON r.id = rp.role_id
+	  WHERE
+	    r.available = true AND
+	    rp.permission_id = #{permissionId}  	  
+  </select>
+  
+  
+
+</mapper>
