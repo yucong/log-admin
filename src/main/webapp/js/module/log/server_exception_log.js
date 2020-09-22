@@ -14,11 +14,17 @@ define(function (require) {
     $.module("Log.serverException", function () {
         var search_aggregate_status = -1;
         var current_show_data = [];
-        //取出platform，加载到下拉框中
+        //加载到下拉框中
         if(typeof(Storage) != "undefined"){
-            if(localStorage.platform){
-                $("#search_platform").val(localStorage.platform);
+        	if(localStorage.deviceType){
+        		$("#search_deviceType").val(localStorage.deviceType);
+            }
+        	if(localStorage.errLevel){
+            	$("#search_errLevel").val(localStorage.errLevel);
             } 
+        	if(localStorage.status){
+        		$("#search_status").val(localStorage.status);
+            }
         }
         return {
             init: function () {
@@ -41,13 +47,13 @@ define(function (require) {
                 var search_time_end = $("#search_time_end").val();
                 var status = $("#search_status").val();
 
-                //将platform保存到webStorage中
+                //保存到webStorage中
                 if(typeof(Storage) != "undefined"){
-                    if(localStorage.platform){
-                        localStorage.platform = platform;
-                    } else {
-                        localStorage.platform = platform;
-                    }
+                	
+                	localStorage.errLevel = errLevel;
+                	localStorage.deviceType = deviceType;
+                	localStorage.status = status;
+                
                 } else {
                    console.log("对不起，您的浏览器不支持 web 存储。");
                 }
