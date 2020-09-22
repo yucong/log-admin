@@ -14,6 +14,7 @@ define(function (require) {
         var current_show_data = [];
         
         //取出platform，加载到下拉框中
+        // 检测浏览器是否支持Web Storage
         if(typeof(Storage) != "undefined"){
             if(localStorage.platform){
                 $("#search_platform").val(localStorage.platform);

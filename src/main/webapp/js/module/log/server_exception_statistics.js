@@ -20,6 +20,14 @@ define(function (require) {
                 $("#search_platform").val(localStorage.platform);
             } 
         }
+        
+        
+        //取出缓存中的参数，加载到下拉框中[检测浏览器是否支持Web Storage]
+        if(typeof(Storage) != "undefined"){
+            if(localStorage.orderBy){
+            	$("#orderBy").val(localStorage.orderBy);
+            } 
+        }
         return {
             init: function () {
                 this.loadData();
@@ -41,13 +49,9 @@ define(function (require) {
                 var search_time_end = $("#search_time_end").val();
                 var orderBy = $("#orderBy").val();
 
-                //将platform保存到webStorage中
+                //将请求参数保存到webStorage中
                 if(typeof(Storage) != "undefined"){
-                    if(localStorage.platform){
-                        localStorage.platform = platform;
-                    } else {
-                        localStorage.platform = platform;
-                    }
+                	localStorage.orderBy = orderBy;
                 } else {
                    console.log("对不起，您的浏览器不支持 web 存储。");
                 }
