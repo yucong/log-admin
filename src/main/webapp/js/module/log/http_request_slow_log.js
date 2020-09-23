@@ -187,6 +187,7 @@ define(function (require) {
                                 that.loadData(obj.pageNumber, obj.pageSize);
                             }
                         });
+                        
                         for (var i = 0; i < current_show_data.length; i++) {
                             function getQueryObject(url) {
                                 if (url != null) {
@@ -206,12 +207,18 @@ define(function (require) {
 
                                 return obj;
                             }
-                            if (current_show_data[i].method == 'GET') {
+                            /*if (current_show_data[i].method == 'GET') {
                                 var request = current_show_data[i].requestParam;
                                 var object = getQueryObject(request);
                                 object = JSON.stringify(object);
                                 if (object && object != '') {
                                     $("#attach_" + i).jsonViewer(JSON.parse(object), { collapsed: true, withQuotes: true });
+                                }
+                            }*/
+                            if (current_show_data[i].method == 'GET') {
+                                var request = current_show_data[i].requestParam;
+                                if (request && request != '') {
+                                    $("#attach_" + i).jsonViewer(request, { collapsed: true, withQuotes: true });
                                 }
                             }
                             if (current_show_data[i].method == 'POST') {

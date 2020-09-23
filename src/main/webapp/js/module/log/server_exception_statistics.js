@@ -139,6 +139,10 @@ define(function (require) {
                             onRefreshTable: function () {   //表格右侧刷新按钮
                                 that.loadData(obj.pageNumber, obj.pageSize);
                             }
+                            
+                            
+                            
+                            
                         });
                     }
                 });
